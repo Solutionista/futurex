@@ -1,0 +1,38 @@
+package online.sterz.views.settings;
+
+import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.littemplate.LitTemplate;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.template.Id;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
+import online.sterz.views.MainLayout;
+
+/**
+ * A Designer generated component for the stub-tag template.
+ *
+ * Designer will add and remove fields with @Id mappings but does not overwrite
+ * or otherwise change this file.
+ */
+@PageTitle("Settings")
+@Route(value = "Settings", layout = MainLayout.class)
+@Tag("settings-view")
+@JsModule("./views/settings/settings-view.ts")
+public class SettingsView extends LitTemplate {
+
+    @Id
+    private TextField name;
+
+    @Id
+    private Button sayHello;
+
+    public SettingsView() {
+        addClassName("block");
+        sayHello.addClickListener(e -> {
+            Notification.show("Hello " + name.getValue());
+        });
+    }
+}
