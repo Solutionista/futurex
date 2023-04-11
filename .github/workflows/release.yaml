@@ -22,7 +22,6 @@ jobs:
   docker:
     name: Publish - Docker Hub
     runs-on: ubuntu-22.04
-    needs: [test]
     env:
       REPO: ${{ secrets.DOCKER_REPO }}
     steps:
