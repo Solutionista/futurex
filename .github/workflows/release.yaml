@@ -17,7 +17,7 @@ jobs:
         with:
           java-version: 17
       - name: Maven Package
-        run: mvn -B clean package -Pproduction -DskipTests
+        run: mvn clean package -Pproduction -DskipTests
      
   docker:
     name: Publish - Docker Hub
