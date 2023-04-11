@@ -13,6 +13,8 @@
 #RUN mvn clean package -Pproduction -DskipTests -Dvaadin.ignoreVersionChecks=true
 
 FROM openjdk:17-jdk-slim
-#COPY /target/*.jar futurex-1.0-SNAPSHOT.jar
+RUN MKDIR /app
+WORKDIR /app
+COPY /target/futurex-1.0-SNAPSHOT.jar /app/futurex.jar
 EXPOSE 8150
-ENTRYPOINT ["java","-jar","futurex-1.0-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","futurex.jar"]
