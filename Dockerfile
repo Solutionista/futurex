@@ -14,6 +14,6 @@
 
 FROM openjdk:17-jdk-slim
 
-COPY /target/futurex-1.0-SNAPSHOT.jar /futurex.jar
+#COPY /target/futurex-1.0-SNAPSHOT.jar /futurex.jar
 EXPOSE 8150
-ENTRYPOINT ["java","-jar","futurex.jar"]
+ENTRYPOINT ["java","-jar","futurex-1.0-SNAPSHOT.jar"]
