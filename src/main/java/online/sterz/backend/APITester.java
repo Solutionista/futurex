@@ -17,19 +17,19 @@ import java.util.concurrent.CountDownLatch;
 public class APITester {
 	private static final String apiPath = "https://futures.kraken.com/derivatives/";
 	private static final String apiPublicKey = "dz1JPamLXabEEctU5xjEMMuma7kEkOBW3MFX/EAxVYJqvnf+8lgUSzET"; //accessible on your Account page under Settings -> API Keys
-//	private static final String apiPrivateKey = "KcB3VyKteO2a3nbtwvUDcCfYIK1H1a36Z/YICX/fVxJhmXH706OOtQ+R"; //accessible on your Account page under Settings -> API Keys
 	private static final String apiPrivateKey = "xo0m9OUArBEcR8bf0KR3NeZuGwq81d1lxjfLmwyUcieZqG0I6Pv1f5cTIF7hXh5B2q9PgwX4v0HzGZNAxLEuPszC"; //accessible on your Account page under Settings -> API Keys
+	private static final int timeout = 10;
+	private static final boolean checkCertificate = true; //when using the test environment, this must be set to "False"
+//	private static final String apiPrivateKey = "KcB3VyKteO2a3nbtwvUDcCfYIK1H1a36Z/YICX/fVxJhmXH706OOtQ+R"; //accessible on your Account page under Settings -> API Keys
 //	private static final String apiPublicKey = "/kREWEsbnrxF+4YtuMug+eT23TnGff2Cc+SrtW3HGQTpvvoAOpka5KJtK/0bLYmHCF1ub1Vs+AHrkghEbAuPYg=="; //accessible on your Account page under Settings -> API Keys
 boolean run = true;
 	private static URI uri;
-	private static final int timeout = 10;
-	private static final boolean checkCertificate = true; //when using the test environment, this must be set to "False"
 
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args)
 		throws MalformedURLException, IOException, KeyManagementException, NoSuchAlgorithmException, InvalidKeyException, URISyntaxException {
 		uri = new URI("wss://futures.kraken.com/ws/v1/");
-		CfApiMethods methods;
+		KrakenFutureService methods;
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
 		String result, symbol, side, orderType;
@@ -39,10 +39,13 @@ boolean run = true;
 //		openAndStreamWebSocketSubscription("wss://futures.kraken.com/ws/v1/", privateWebSocketSubscriptionMsg);/*---------------------------Public Endpoints-----------------------------------------------*/
 		CountDownLatch latch = new CountDownLatch(1);
 
+			/*----------------------------Private Endpoints----------------------------------------------*/
+			methods = new KrakenFutureService(apiPath, apiPublicKey, apiPrivateKey, timeout,
+				checkCertificate);
 
-//		//get instruments
-//		result = methods.getInstruments();
-//		System.out.println("getInstruments:\n" + result);
+		//get instruments
+		result = methods.getInstruments();
+		System.out.println("getInstruments:\n" + result);
 //
 //		//get tickers
 //		result = methods.getTickers();
@@ -54,9 +57,6 @@ boolean run = true;
 //		result = methods.getHistory(symbol, calendar.getTime());
 //		System.out.println("getHistory:\n" + result);
 
-			/*----------------------------Private Endpoints----------------------------------------------*/
-			methods = new CfApiMethods(apiPath, apiPublicKey, apiPrivateKey, timeout,
-				checkCertificate);
 
 			//get accounts
 //		result = methods.getAccounts();
@@ -140,9 +140,9 @@ boolean run = true;
 //		System.out.println("getFills:\n" + result);
 //
 		//get open positions
-		result = methods.getOpenPositions();
-		System.out.println("getOpenPositions:\n" + result);
-
+//		result = methods.getOpenPositions();
+//		System.out.println("getOpenPositions:\n" + result);
+//
 		}
 
 

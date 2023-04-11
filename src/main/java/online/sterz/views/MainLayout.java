@@ -58,7 +58,7 @@ public class MainLayout extends AppLayout {
         AppNav nav = new AppNav();
 
         nav.addItem(new AppNavItem("Start", StartView.class, LineAwesomeIcon.GLOBE_SOLID.create()));
-        nav.addItem(new AppNavItem("Talk", TalkView.class, LineAwesomeIcon.COMMENTS.create()));
+//        nav.addItem(new AppNavItem("Talk", TalkView.class, LineAwesomeIcon.COMMENTS.create()));
         nav.addItem(new AppNavItem("Settings", SettingsView.class, LineAwesomeIcon.COG_SOLID.create()));
         nav.addItem(new AppNavItem("Accounts", AccountsView.class, LineAwesomeIcon.BITCOIN.create()));
         nav.addItem(new AppNavItem("Lab", LabView.class, LineAwesomeIcon.FLASK_SOLID.create()));

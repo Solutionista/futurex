@@ -22,6 +22,8 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package online.sterz.backend;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,8 +41,10 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
@@ -53,7 +57,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-public class CfApiMethods {
+public class KrakenFutureService {
 	private String apiPath;
 	private String apiPublicKey;
 	private String apiPrivateKey;
@@ -62,7 +66,7 @@ public class CfApiMethods {
 	private int nonce;
 	private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
-	public CfApiMethods(String apiPath, String apiPublicKey, String apiPrivateKey, int timeout,
+	public KrakenFutureService(String apiPath, String apiPublicKey, String apiPrivateKey, int timeout,
 			boolean checkCertificate) {
 		this.apiPath = apiPath;
 		this.apiPublicKey = apiPublicKey;
@@ -73,7 +77,7 @@ public class CfApiMethods {
 		df.setTimeZone(TimeZone.getTimeZone("UTC"));
 	}
 
-	public CfApiMethods(String apiPath, boolean checkCertificate) {
+	public KrakenFutureService(String apiPath, boolean checkCertificate) {
 		this(apiPath, null, null, 10, checkCertificate);
 	}
 
@@ -307,10 +311,11 @@ public class CfApiMethods {
 	}
 
 	// Returns all open positions
-	public String getOpenPositions() throws KeyManagementException, InvalidKeyException, MalformedURLException,
+	public List<Position> getOpenPositions() throws KeyManagementException, InvalidKeyException, MalformedURLException,
 			NoSuchAlgorithmException, IOException {
+
 		String endpoint = "/api/v3/openpositions";
-		return makeRequest("GET", endpoint);
+		return deserializePositions(makeRequest("GET", endpoint));
 	}
 
 	// Sends an xbt witdrawal request
@@ -334,6 +339,18 @@ public class CfApiMethods {
 			NoSuchAlgorithmException, IOException {
 		String endpoint = "/api/v3/transfers";
 		return makeRequest("GET", endpoint);
+	}
+
+	public List<Position> deserializePositions(String json) throws IOException {
+		List<Position> positionList = new ArrayList<>();
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode rootNode = mapper.readTree(json);
+		JsonNode positionsNode = rootNode.get("openPositions");
+		for (JsonNode positionNode : positionsNode) {
+			Position position = mapper.treeToValue(positionNode, Position.class);
+			positionList.add(position);
+		}
+		return positionList;
 	}
 
 }
