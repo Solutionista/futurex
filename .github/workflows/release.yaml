@@ -18,9 +18,17 @@ jobs:
           java-version: 17
       - name: Maven Package
         run: mvn clean package -Pproduction -DskipTests
-     
+      - name: Build the Project
+        run: mvn clean install -DskipTests
+      - name: Upload target folder
+        uses: actions/upload-artifact@v2
+        with:
+          name: target
+          path: |
+            ${{ github.workspace }}/target
   docker:
     name: Publish - Docker Hub
+    needs: test
     runs-on: ubuntu-22.04
     env:
       REPO: ${{ secrets.DOCKER_REPO }}
