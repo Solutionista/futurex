@@ -28,6 +28,7 @@ jobs:
             ${{ github.workspace }}/target
   docker:
     name: Publish - Docker Hub
+    needs: test
     runs-on: ubuntu-22.04
     env:
       REPO: ${{ secrets.DOCKER_REPO }}
