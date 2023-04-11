@@ -1,0 +1,18 @@
+{
+  "frontendFolder": "C:/Users/sterz/code/github/futurex/frontend",
+  "themeFolder": "themes",
+  "themeResourceFolder": "C:/Users/sterz/code/github/futurex/frontend/generated/jar-resources",
+  "staticOutput": "C:/Users/sterz/code/github/futurex/target/classes/META-INF/VAADIN/webapp/VAADIN/static",
+  "generatedFolder": "generated",
+  "statsOutput": "C:\\Users\\sterz\\code\\github\\futurex\\target\\classes\\META-INF\\VAADIN\\config",
+  "frontendBundleOutput": "C:\\Users\\sterz\\code\\github\\futurex\\target\\classes\\META-INF\\VAADIN\\webapp",
+  "devBundleOutput": "C:/Users/sterz/code/github/futurex/src/main/dev-bundle/webapp",
+  "devBundleStatsOutput": "C:/Users/sterz/code/github/futurex/src/main/dev-bundle/config",
+  "jarResourcesFolder": "C:/Users/sterz/code/github/futurex/frontend/generated/jar-resources",
+  "generatedFlowImportsFolder": "target/frontend",
+  "themeName": "futurex",
+  "clientServiceWorkerSource": "C:\\Users\\sterz\\code\\github\\futurex\\target\\sw.ts",
+  "pwaEnabled": false,
+  "offlineEnabled": false,
+  "offlinePath": "'offline.html'"
+}
